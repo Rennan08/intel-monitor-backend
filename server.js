@@ -37,6 +37,12 @@ function broadcast(data) {
 wss.on("connection", ws => {
   clients.add(ws);
   ws.send(JSON.stringify({ type: "INIT", payload: { messages: history, analyses } }));
+  ws.on("message", (data) => {
+    try {
+      const { type } = JSON.parse(data);
+      if (type === "PING") ws.send(JSON.stringify({ type: "PONG" }));
+    } catch(_) {}
+  });
   ws.on("close", () => clients.delete(ws));
 });
 
