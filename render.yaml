@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: intel-monitor-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: WA_VERIFY_TOKEN
+        sync: false        # você preenche no painel do Render
+      - key: WA_ACCESS_TOKEN
+        sync: false
+      - key: WA_PHONE_NUMBER_ID
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: "*"
